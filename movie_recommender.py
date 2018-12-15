@@ -9,6 +9,7 @@ data = pd.read_csv("ml-latest-small//ratings.csv", header = None)
 
 #Drop the 'timestamps' as we dont need them
 data = data.drop([3], axis=1)
+data = data.drop(0)
 
 #Pivot the data to be listed by user
 data_pivot = pd.DataFrame(data).pivot_table(index=0, columns=1, values=2, aggfunc='first').fillna(0)
@@ -17,16 +18,16 @@ data_pivot = pd.DataFrame(data).pivot_table(index=0, columns=1, values=2, aggfun
 trX, teX = train_test_split(data_pivot, test_size=0.2)
 
 #Number of nodes per layer
-input_nodes = 9725
+input_nodes = 9724
 hidden_nodes = 256
-output_nodes = 9725
+output_nodes = 9724
 
 #Creating the network layers
 hidden_layer = {'weights':tf.Variable(tf.random_normal([input_nodes+1,hidden_nodes]))}
 output_layer = {'weights':tf.Variable(tf.random_normal([hidden_nodes+1,output_nodes]))}
 
 #Input layer with 1 rating per movie
-input_layer = tf.placeholder('float', [None, 9725])
+input_layer = tf.placeholder('float', [None, 9724])
 
 #Adding a bias node to the input layer
 input_layer_const = tf.fill([tf.shape(input_layer)[0], 1], 1.0)
@@ -43,7 +44,7 @@ hidden_layer_concat = tf.concat([hidden_layer, hidden_layer_const], 1)
 output_layer = tf.matmul(hidden_layer_concat,output_layer['weights'])
 
 #The original shape, used for error calculations
-shape = tf.placeholder('float', [None, 9725])
+shape = tf.placeholder('float', [None, 9724])
 
 #Cost function, learning rate, optimizer
 rate = 0.1
