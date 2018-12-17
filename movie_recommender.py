@@ -21,7 +21,7 @@ trX, teX = train_test_split(data_pivot, test_size=0.2)
 
 #Number of nodes per layer
 input_nodes = 9724
-hidden_nodes = 256
+hidden_nodes = 16
 output_nodes = 9724
 
 #Creating the network layers
@@ -49,7 +49,7 @@ output_layer = tf.matmul(hidden_layer_concat,output_layer['weights'])
 shape = tf.placeholder('float', [None, 9724])
 
 #Cost function, learning rate, optimizer
-rate = 0.1
+rate = 2
 cost = tf.reduce_mean(tf.square(output_layer - shape))
 optimizer = tf.train.AdagradOptimizer(rate).minimize(cost)
 
@@ -59,8 +59,8 @@ sess = tf.Session()
 sess.run(init)
 
 #Batch size, epochs, users
-batch_size = 100
-epochs = 100
+batch_size = 5
+epochs = 25
 users = trX.shape[0]
 
 for epoch in range(epochs):

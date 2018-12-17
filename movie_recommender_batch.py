@@ -23,21 +23,22 @@ trX, teX = train_test_split(data_pivot, test_size=0.2)
 
 #Number of nodes per layer
 input_nodes = 9724
-hidden_nodes = 16
+hidden_nodes = 256
 output_nodes = 9724
 
 #Batch size, epochs, users
 #batch_size = 100
-epochs = 25
+epochs = 200
 users = trX.shape[0]
 
 TrainMSE = []
 TestMSE = []
-rate = 2
+rate = 0.1
 #rates = np.array([0.001,0.01,0.1,0.5])
 #rates = np.array([500])
 #hiddenNodes = np.array([2,4,8])
-batches = np.array([5,25,50,100,250,500])
+batches = np.array([100])
+#batches = np.array([5,25,50,100,250,500])
 
 for batch_size in batches:
     print("Batch Size = ", batch_size)
@@ -101,66 +102,67 @@ for batch_size in batches:
     TrainMSE.append(MSEtrain)
     TestMSE.append(MSEtest)
 
-#plt.figure()
-#figure(num=None, figsize=(8, 6), dpi=80, facecolor='w', edgecolor='k')
-#One = plt.errorbar(np.arange(epochs),TrainMSE[0], color = 'C1', label = 'Hidden Neurons = 16')
-#Two = plt.errorbar(np.arange(epochs),TrainMSE[1], color = 'C2', label = 'Hidden Neurons = 32')
-#Three = plt.errorbar(np.arange(epochs),TrainMSE[2], color = 'C3', label = 'Hidden Neurons = 64')
-#Four = plt.errorbar(np.arange(epochs),TrainMSE[3], color = 'C4', label = 'Hidden Neurons = 128')
-#Five = plt.errorbar(np.arange(epochs),TrainMSE[4], color = 'C5', label = 'Hidden Neurons = 256')
-#Six = plt.errorbar(np.arange(epochs),TrainMSE[5], color = 'C6', label = 'Hidden Neurons = 512')
-###Seven = plt.errorbar(np.arange(epochs),TrainMSE[6], color = 'C7', label = 'Hidden Neurons = 2')
-###Eight = plt.errorbar(np.arange(epochs),TrainMSE[7], color = 'C8', label = 'Hidden Neurons = 4')
-###Nine = plt.errorbar(np.arange(epochs),TrainMSE[8], color = 'C9', label = 'Hidden Neurons = 8')
-####Ten = plt.errorbar(np.arange(epochs),TrainMSE[9], color = 'C7', label = 'Rate = 50.0')
-####Eleven = plt.errorbar(np.arange(epochs),TrainMSE[10], color = 'C8', label = 'Rate = 500')
-####
-##One = plt.errorbar(np.arange(25),TrainMSE[0][0:25], color = 'C1', label = 'Hidden Neurons = 16')
-##Two = plt.errorbar(np.arange(25),TrainMSE[1][0:25], color = 'C2', label = 'Hidden Neurons = 32')
-##Three = plt.errorbar(np.arange(25),TrainMSE[2][0:25], color = 'C3', label = 'Hidden Neurons = 64')
-##Four = plt.errorbar(np.arange(25),TrainMSE[3][0:25], color = 'C4', label = 'Hidden Neurons = 128')
-##Five = plt.errorbar(np.arange(25),TrainMSE[4][0:25], color = 'C5', label = 'Hidden Neurons = 256')
-##Six = plt.errorbar(np.arange(25),TrainMSE[5][0:25], color = 'C6', label = 'Hidden Neurons = 512')
-#####Ten = plt.errorbar(np.arange(50),TrainMSE[9][0:50], color = 'C7', label = 'Rate = 50')
-#####Eleven = plt.errorbar(np.arange(50),TrainMSE[10][0:50], color = 'C8', label = 'Rate = 500')
-####
-#plt.title("Training MSE vs. Epochs (Learning Rate = 2.0)")
-#plt.xlabel("Number of Epochs")
-#plt.ylabel("MSE")
+plt.figure()
+figure(num=None, figsize=(8, 6), dpi=80, facecolor='w', edgecolor='k')
+One = plt.errorbar(np.arange(epochs),TrainMSE[0])#, color = 'C1', label = 'Batches = 5')
+#Two = plt.errorbar(np.arange(epochs),TrainMSE[1], color = 'C2', label = 'Batches = 25')
+#Three = plt.errorbar(np.arange(epochs),TrainMSE[2], color = 'C3', label = 'Batches = 50')
+#Four = plt.errorbar(np.arange(epochs),TrainMSE[3], color = 'C4', label = 'Batches = 100')
+#Five = plt.errorbar(np.arange(epochs),TrainMSE[4], color = 'C5', label = 'Batches = 250')
+#Six = plt.errorbar(np.arange(epochs),TrainMSE[5], color = 'C6', label = 'Batches = 500')
+####Seven = plt.errorbar(np.arange(epochs),TrainMSE[6], color = 'C7', label = 'Hidden Neurons = 2')
+####Eight = plt.errorbar(np.arange(epochs),TrainMSE[7], color = 'C8', label = 'Hidden Neurons = 4')
+####Nine = plt.errorbar(np.arange(epochs),TrainMSE[8], color = 'C9', label = 'Hidden Neurons = 8')
+#####Ten = plt.errorbar(np.arange(epochs),TrainMSE[9], color = 'C7', label = 'Rate = 50.0')
+#####Eleven = plt.errorbar(np.arange(epochs),TrainMSE[10], color = 'C8', label = 'Rate = 500')
+#####
+###One = plt.errorbar(np.arange(25),TrainMSE[0][0:25], color = 'C1', label = 'Hidden Neurons = 16')
+###Two = plt.errorbar(np.arange(25),TrainMSE[1][0:25], color = 'C2', label = 'Hidden Neurons = 32')
+###Three = plt.errorbar(np.arange(25),TrainMSE[2][0:25], color = 'C3', label = 'Hidden Neurons = 64')
+###Four = plt.errorbar(np.arange(25),TrainMSE[3][0:25], color = 'C4', label = 'Hidden Neurons = 128')
+###Five = plt.errorbar(np.arange(25),TrainMSE[4][0:25], color = 'C5', label = 'Hidden Neurons = 256')
+###Six = plt.errorbar(np.arange(25),TrainMSE[5][0:25], color = 'C6', label = 'Hidden Neurons = 512')
+######Ten = plt.errorbar(np.arange(50),TrainMSE[9][0:50], color = 'C7', label = 'Rate = 50')
+######Eleven = plt.errorbar(np.arange(50),TrainMSE[10][0:50], color = 'C8', label = 'Rate = 500')
+#####
+plt.title("Training MSE vs. Epochs")
+plt.xlabel("Number of Epochs")
+plt.ylabel("MSE")
 #plt.legend(handles = [One,Two,Three,Four,Five,Six], loc = 1)
-##plt.legend(handles = [Four,Five,Six,Seven,Eight,Nine,Ten,Eleven], loc = 1)
-#plt.grid()
-#plt.show()
-##
-#plt.figure()
-#figure(num=None, figsize=(8, 6), dpi=80, facecolor='w', edgecolor='k')
-#One = plt.errorbar(np.arange(epochs),TestMSE[0], color = 'C1', label = 'Hidden Neurons = 16')
-#Two = plt.errorbar(np.arange(epochs),TestMSE[1], color = 'C2', label = 'Hidden Neurons = 32')
-#Three = plt.errorbar(np.arange(epochs),TestMSE[2], color = 'C3', label = 'Hidden Neurons = 64')
-#Four = plt.errorbar(np.arange(epochs),TestMSE[3], color = 'C4', label = 'Hidden Neurons = 128')
-#Five = plt.errorbar(np.arange(epochs),TestMSE[4], color = 'C5', label = 'Hidden Neurons = 256')
-#Six = plt.errorbar(np.arange(epochs),TestMSE[5], color = 'C6', label = 'Hidden Neurons = 512')
-####Seven = plt.errorbar(np.arange(epochs),TestMSE[6], color = 'C1', label = 'Rate = 2.0')
-####Eight = plt.errorbar(np.arange(epochs),TestMSE[7], color = 'C6', label = 'Rate = 5.0')
-####Nine = plt.errorbar(np.arange(epochs),TestMSE[8], color = 'C9', label = 'Rate = 10')
-####Ten = plt.errorbar(np.arange(epochs),TestMSE[9], color = 'C7', label = 'Rate = 50')
-####Eleven = plt.errorbar(np.arange(epochs),TestMSE[10], color = 'C8', label = 'Rate = 500')
+#plt.legend(handles = [Four,Five,Six,Seven,Eight,Nine,Ten,Eleven], loc = 1)
+plt.grid()
+plt.show()
 ###
-##One = plt.errorbar(np.arange(25),TestMSE[0][0:25], color = 'C1', label = 'Hidden Neurons = 16')
-##Two = plt.errorbar(np.arange(25),TestMSE[1][0:25], color = 'C2', label = 'Hidden Neurons = 32')
-##Three = plt.errorbar(np.arange(25),TestMSE[2][0:25], color = 'C3', label = 'Hidden Neurons = 64')
-##Four = plt.errorbar(np.arange(25),TestMSE[3][0:25], color = 'C4', label = 'Hidden Neurons = 128')
-##Five = plt.errorbar(np.arange(25),TestMSE[4][0:25], color = 'C5', label = 'Hidden Neurons = 256')
-##Six = plt.errorbar(np.arange(25),TestMSE[5][0:25], color = 'C6', label = 'Hidden Neurons = 512')
-###Ten = plt.errorbar(np.arange(50),TestMSE[9][0:50], color = 'C7', label = 'Rate = 50')
-###Eleven = plt.errorbar(np.arange(50),TestMSE[10][0:50], color = 'C8', label = 'Rate = 500')
-#plt.title("Testing MSE vs. Epochs (Learning Rate = 2.0)")
-#plt.xlabel("Number of Epochs")
-#plt.ylabel("MSE")
+plt.figure()
+figure(num=None, figsize=(8, 6), dpi=80, facecolor='w', edgecolor='k')
+One = plt.errorbar(np.arange(epochs),TestMSE[0])#, color = 'C1', label = 'Batches = 5')
+#Two = plt.errorbar(np.arange(epochs),TestMSE[1], color = 'C2', label = 'Batches = 25')
+#Three = plt.errorbar(np.arange(epochs),TestMSE[2], color = 'C3', label = 'Batches = 50')
+#Four = plt.errorbar(np.arange(epochs),TestMSE[3], color = 'C4', label = 'Batches = 100')
+#Five = plt.errorbar(np.arange(epochs),TestMSE[4], color = 'C5', label = 'Batches = 250')
+#Six = plt.errorbar(np.arange(epochs),TestMSE[5], color = 'C6', label = 'Batches = 500')
+#####Seven = plt.errorbar(np.arange(epochs),TestMSE[6], color = 'C1', label = 'Rate = 2.0')
+#####Eight = plt.errorbar(np.arange(epochs),TestMSE[7], color = 'C6', label = 'Rate = 5.0')
+#####Nine = plt.errorbar(np.arange(epochs),TestMSE[8], color = 'C9', label = 'Rate = 10')
+#####Ten = plt.errorbar(np.arange(epochs),TestMSE[9], color = 'C7', label = 'Rate = 50')
+#####Eleven = plt.errorbar(np.arange(epochs),TestMSE[10], color = 'C8', label = 'Rate = 500')
+####
+###One = plt.errorbar(np.arange(25),TestMSE[0][0:25], color = 'C1', label = 'Hidden Neurons = 16')
+###Two = plt.errorbar(np.arange(25),TestMSE[1][0:25], color = 'C2', label = 'Hidden Neurons = 32')
+###Three = plt.errorbar(np.arange(25),TestMSE[2][0:25], color = 'C3', label = 'Hidden Neurons = 64')
+###Four = plt.errorbar(np.arange(25),TestMSE[3][0:25], color = 'C4', label = 'Hidden Neurons = 128')
+###Five = plt.errorbar(np.arange(25),TestMSE[4][0:25], color = 'C5', label = 'Hidden Neurons = 256')
+###Six = plt.errorbar(np.arange(25),TestMSE[5][0:25], color = 'C6', label = 'Hidden Neurons = 512')
+####Ten = plt.errorbar(np.arange(50),TestMSE[9][0:50], color = 'C7', label = 'Rate = 50')
+####Eleven = plt.errorbar(np.arange(50),TestMSE[10][0:50], color = 'C8', label = 'Rate = 500')
+plt.title("Testing MSE vs. Epochs")
+#plt.title("Testing MSE vs. Epochs (Learning Rate = 2.0, Hidden Neurons = 16)")
+plt.xlabel("Number of Epochs")
+plt.ylabel("MSE")
 #plt.legend(handles = [One,Two,Three,Four,Five,Six], loc = 1)
-##plt.legend(handles = [Four,Five,Six,Seven,Eight,Nine,Ten,Eleven], loc = 1)
-#plt.grid()
-#plt.show()
+#plt.legend(handles = [Four,Five,Six,Seven,Eight,Nine,Ten,Eleven], loc = 1)
+plt.grid()
+plt.show()
 
 ##Rating window
 #window = tk.Tk()
