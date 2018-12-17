@@ -57,6 +57,8 @@ optimizer = tf.train.AdagradOptimizer(rate).minimize(cost)
 init = tf.global_variables_initializer()
 sess = tf.Session()
 sess.run(init)
+writer = tf.summary.FileWriter("/tensorboard/model")
+writer.add_graph(sess.graph)
 
 #Batch size, epochs, users
 batch_size = 5
